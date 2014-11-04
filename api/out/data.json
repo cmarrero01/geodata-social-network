@@ -1,0 +1,163 @@
+{
+    "project": {},
+    "files": {
+        "tests\\MediaTest.php": {
+            "name": "tests\\MediaTest.php",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "tests\\test_bootstrap.php": {
+            "name": "tests\\test_bootstrap.php",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "index.php": {
+            "name": "index.php",
+            "modules": {},
+            "classes": {
+                "OlaPicTest": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "OlaPicTest": {
+            "name": "OlaPicTest",
+            "shortname": "OlaPicTest",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "index.php",
+            "line": 2,
+            "description": "Created by UN IDE MUY BUENO.\nUser: Claudio A. Marrero\nDate: 03/11/2014\nTime: 06:58 PM",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "tests\\MediaTest.php",
+            "line": 2,
+            "description": "Created by NOTEPAD (yes, notepad, i'm awesome).\nUser: Claudio A. Marrero\nDate: 03/11/2014\nTime: 09:26 PM",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "tests\\test_bootstrap.php",
+            "line": 2,
+            "description": "Created by NOTEPAD (yes, notepad, i'm awesome).\nUser: Claudio A. Marrero\nDate: 03/11/2014\nTime: 09:26 PM",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 18,
+            "description": "Initialization",
+            "itemtype": "property",
+            "name": "$app",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 24,
+            "description": "The client ID for instagram",
+            "itemtype": "property",
+            "name": "$client_id",
+            "var": "string",
+            "access": "private",
+            "tagname": "",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 32,
+            "description": "Inital method for OlaPicTest class",
+            "itemtype": "method",
+            "name": "__construct",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 42,
+            "description": "Public REST Endpoints",
+            "itemtype": "method",
+            "name": "endpoints",
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 53,
+            "description": "Home request",
+            "itemtype": "method",
+            "name": "home",
+            "params": [
+                {
+                    "name": "Request",
+                    "description": "$request"
+                },
+                {
+                    "name": "Application",
+                    "description": "$app"
+                }
+            ],
+            "return": {
+                "description": "\\Symfony\\Component\\HttpFoundation\\JsonResponse"
+            },
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 65,
+            "description": "Get the media information",
+            "itemtype": "method",
+            "name": "media",
+            "params": [
+                {
+                    "name": "Request",
+                    "description": "$request"
+                },
+                {
+                    "name": "Application",
+                    "description": "$app"
+                },
+                {
+                    "name": "Int",
+                    "description": "$id Id of the media file"
+                }
+            ],
+            "return": {
+                "description": "\\Symfony\\Component\\HttpFoundation\\JsonResponse"
+            },
+            "class": "OlaPicTest"
+        },
+        {
+            "file": "index.php",
+            "line": 92,
+            "description": "Instace the OlaPicTest class, the constructor make the initialization of $app object\nfor silex aplication, and then, you need to expose the enpoints to the browser.",
+            "class": "OlaPicTest"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: var",
+            "line": " index.php:24"
+        },
+        {
+            "message": "Missing item type\nCreated by NOTEPAD (yes, notepad, i'm awesome).\nUser: Claudio A. Marrero\nDate: 03/11/2014\nTime: 09:26 PM",
+            "line": " tests\\MediaTest.php:2"
+        },
+        {
+            "message": "Missing item type\nCreated by NOTEPAD (yes, notepad, i'm awesome).\nUser: Claudio A. Marrero\nDate: 03/11/2014\nTime: 09:26 PM",
+            "line": " tests\\test_bootstrap.php:2"
+        },
+        {
+            "message": "Missing item type\nInstace the OlaPicTest class, the constructor make the initialization of $app object\nfor silex aplication, and then, you need to expose the enpoints to the browser.",
+            "line": " index.php:92"
+        }
+    ]
+}

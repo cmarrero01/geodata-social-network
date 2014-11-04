@@ -4,16 +4,15 @@
  * User: Claudio A. Marrero
  * Date: 03/11/2014
  * Time: 06:58 PM
+ * @class OlaPicTest
+ * @constructor
  */
-require_once __DIR__.'/../vendor/autoload.php';
 
+require_once __DIR__.'/../vendor/autoload.php';
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Initial Class for make the request
- * @class OlaPicTest
- */
+
 class OlaPicTest
 {
     /**
@@ -21,6 +20,13 @@ class OlaPicTest
      * @property $app
      */
     public $app;
+
+    /**
+     * The client ID for instagram
+     * @property $client_id
+     * @var string
+     * @private
+     */
     private $client_id = "5278ecf3b07d4c999859e64497793a55";
 
     /**
@@ -46,6 +52,7 @@ class OlaPicTest
 
     /**
      * Home request
+     * @method home
      * @param Request $request
      * @param Application $app
      * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -57,6 +64,7 @@ class OlaPicTest
 
     /**
      * Get the media information
+     * @method media
      * @param Request $request
      * @param Application $app
      * @param Int $id Id of the media file
