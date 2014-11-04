@@ -1,5 +1,10 @@
 {
     "require": {
         "silex/silex": "~1.2"
+    },
+    "require-dev": {
+        "symfony/browser-kit": ">=2.3,<2.4-dev",
+        "symfony/css-selector": "*",
+        "phpunit/phpunit": "4.3.*"
     }
 }
