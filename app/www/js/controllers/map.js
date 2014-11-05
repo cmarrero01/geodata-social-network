@@ -18,6 +18,17 @@ Olapic.Map = (function(){
         };
         map = new google.maps.Map(document.getElementById('map'),opt);
         Olapic.Instagram.search(40.762814257,-73.987614559,OnSearch);
+        getPosition();
+    }
+
+    function getPosition(){
+        navigator.geolocation.getCurrentPosition(onSuccess,function(){});
+    }
+
+    function onSuccess(position) {
+        var latLngToPan = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        Olapic.Instagram.search(position.coords.latitude,position.coords.longitude,OnSearch);
+        map.panTo(latLngToPan);
     }
 
     function OnSearch(res){

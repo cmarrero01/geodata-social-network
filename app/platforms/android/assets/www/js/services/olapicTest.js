@@ -5,9 +5,7 @@ Olapic.OlapicTest = (function(){
 
     function media(id,callback){
         var endpoint = Olapic.Config.base_endpoint+id;
-        $.getJSON(endpoint,function(r){
-            callback(r);
-        });
+        $.getJSON(endpoint,callback);
     }
 
     return {
