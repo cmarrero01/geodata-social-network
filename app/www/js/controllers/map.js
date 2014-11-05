@@ -6,13 +6,14 @@ Olapic.Map = (function(){
     var map;
     var markers = [];
     var latLng = [];
+    var mediaList = [];
     var businessMarkers = [];
     var businesssLatLng = [];
     var business = [];
 
     function initialization(){
         var opt = {
-            zoom: 8,
+            zoom: 14,
             center: new google.maps.LatLng(40.762814257, -73.987614559)
         };
         map = new google.maps.Map(document.getElementById('map'),opt);
@@ -24,26 +25,56 @@ Olapic.Map = (function(){
             alert("This location doesnt have any media yet");
             return;
         }
-        for(var media in res.data){
-            var item = res.data[media];
-            if(latLng.indexOf(item.latitude+item.longitude) === -1){
-                newMedia(item);
+
+        for(var index in res.data){
+            var media = res.data[index];
+            var location = media.location;
+
+            if(!location){
+                continue;
+            }
+
+            if(latLng.indexOf(media.location.latitude+media.location.longitude) === -1){
+                newMarketMedia(media);
             }
         }
     }
 
-    function newMedia(media){
+    function newMarketMedia(media){
 
-        var mediaLatLng = new google.maps.LatLng(media.latitude,media.longitude);
+        if(media.type !== 'image' || !media.images || media.images.length <= 0){
+            return;
+        }
+
+        var thumbnail = media.images.thumbnail;
+        if(!thumbnail){
+            return;
+        }
+
+        var mediaLatLng = new google.maps.LatLng(media.location.latitude,media.location.longitude);
+
+        var image = {
+            url: thumbnail.url,
+            // This marker is 20 pixels wide by 32 pixels tall.
+            size: new google.maps.Size(50,50),
+            // The origin for this image is 0,0.
+            origin: new google.maps.Point(0,0),
+            // The anchor for this image is the base of the flagpole at 0,32.
+            anchor: new google.maps.Point(25,25)
+        };
+
         var marker = new google.maps.Marker({
             position: mediaLatLng,
             map: map,
             title: media.name,
-            id:media.id
+            id:media.id,
+            icon:image
         });
 
         markers.push(marker);
-        latLng.push(media.latitude+media.longitude);
+        latLng.push(media.location.latitude+media.location.longitude);
+        mediaList[media.id] = media;
+
         google.maps.event.addListener(marker, 'click', OnMarker);
 
     }
@@ -54,6 +85,9 @@ Olapic.Map = (function(){
             return;
         }
         var id = $this[0].id;
+        if(!confirm("You want to show the business near of this image?")){
+            return;
+        }
         Olapic.OlapicTest.media(id,OnGetLocations);
     }
 
@@ -78,11 +112,23 @@ Olapic.Map = (function(){
     function newBusiness(place){
 
         var placeLatLng = new google.maps.LatLng(place.location.lat,place.location.lng);
+
+        var image = {
+            url: '/img/location-business.png',
+            // This marker is 20 pixels wide by 32 pixels tall.
+            size: new google.maps.Size(40,51),
+            // The origin for this image is 0,0.
+            origin: new google.maps.Point(0,0),
+            // The anchor for this image is the base of the flagpole at 0,32.
+            anchor: new google.maps.Point(20,25)
+        };
+
         var marker = new google.maps.Marker({
             position: placeLatLng,
             map: map,
             title: place.name,
-            id:place.place_id
+            id:place.place_id,
+            icon:image
         });
 
         business[place.place_id] = place.name;

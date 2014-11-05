@@ -3,19 +3,10 @@
  */
 Olapic.Instagram = (function(){
 
-    var call;
-
     function search(lat,lon,callback){
-        call = callback;
-        var endpoint = 'https://api.instagram.com/v1/locations/search?lat='+lat+'&lng='+lon+'&client_id='+Olapic.Config.inst+'&callback=?';
-        $.getJSON(endpoint,OnSearch);
+        var endpoint = 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+lon+'&client_id='+Olapic.Config.inst+'&callback=?';
+        $.getJSON(endpoint,callback);
     }
-
-    function OnSearch(r){
-        call(r);
-        call = null;
-    }
-
     return {
         search:search
     };
