@@ -9,25 +9,26 @@
  */
 
 require_once __DIR__.'/../vendor/autoload.php';
-include_once ("config.php");
+require_once __DIR__.'/core/config/config.php';
+require_once __DIR__.'/core/model/places_model.php';
+require_once __DIR__.'/core/libs/parse.php';
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OlaPicTest
 {
 
     /**
      * Application Silex instance
-     * @property $app
-     * @var Application
+     * @property app
      */
     public $app;
 
     /**
      * Get all data for make request to the differents apis
-     * @property $config
-     * @var OlaPic_Config
+     * @property config
      */
     private $config;
 
@@ -38,6 +39,9 @@ class OlaPicTest
     public function __construct()
     {
         $this->app = new Silex\Application();
+        $this->app->after(function (Request $request, Response $response) {
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        });
         $this->app['debug'] = true;
         $this->config = new OlaPic_Config();
     }
@@ -74,7 +78,8 @@ class OlaPicTest
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function media(Request $request, Application $app, $id){
-
+        
+        $id = urlencode ($id);
         $endpoint = 'https://api.instagram.com/v1/media/'.$id.'?client_id='.$this->config->getInstId();
 
         $media = $this->GET($endpoint);
@@ -84,11 +89,14 @@ class OlaPicTest
             return $app->json("This media file, doesnt have a location",200);
         }
 
+        $parse = new OlaPic_ParsePlaces();
         $venues =  $this->FoursquareVenues($location);
-        $places = $this->GooglePlaces($location);
+        $parse->foursParse($venues);
 
-        $location->places = $places;
-        $location->foursquare = $venues;
+        $places = $this->GooglePlaces($location);
+        $parse->gooParse($places);
+
+        $location->places = $parse->places;
 
         return $app->json($location,200);
     }

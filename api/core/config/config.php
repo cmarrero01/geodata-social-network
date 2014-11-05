@@ -2,12 +2,10 @@
 /**
  * Created
  * User: Claudio A. Marrero
- * Date: 03/11/2014
- * Time: 06:58 PM
- * @class OlaPicTest
- * @constructor
+ * Date: 04/11/2014
+ * Time: 09:58 PM
+ * @class OlaPic_Config
  */
-
 
 class OlaPic_Config
 {

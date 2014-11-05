@@ -1,0 +1,7 @@
+{
+    "name": "Olapic Test",    
+    "version": "1.0.0",     
+    "options": {                
+        "outdir": "./docs"              
+    }
+}
