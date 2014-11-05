@@ -1,6 +1,7 @@
 {
     "require": {
-        "silex/silex": "~1.2"
+        "silex/silex": "~1.2",
+        "facebook/php-sdk-v4" : "4.0.*"
     },
     "require-dev": {
         "symfony/browser-kit": ">=2.3,<2.4-dev",

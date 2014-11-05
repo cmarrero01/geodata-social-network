@@ -29,7 +29,7 @@ class WebTest extends WebTestCase {
 
     public function test_Media(){
         $this->client = $this->createClient();
-        $crawler = $this->client->request('GET', '/media/3');
+        $crawler = $this->client->request('GET', '/media/846589506938951701_12522773');
         $response = $this->client->getResponse();
 
         $this->assertEquals(

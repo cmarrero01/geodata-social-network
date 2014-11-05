@@ -9,25 +9,27 @@
  */
 
 require_once __DIR__.'/../vendor/autoload.php';
+include_once ("config.php");
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class OlaPicTest
 {
+
     /**
-     * Initialization
+     * Application Silex instance
      * @property $app
+     * @var Application
      */
     public $app;
 
     /**
-     * The client ID for instagram
-     * @property $client_id
-     * @var string
-     * @private
+     * Get all data for make request to the differents apis
+     * @property $config
+     * @var OlaPic_Config
      */
-    private $client_id = "5278ecf3b07d4c999859e64497793a55";
+    private $config;
 
     /**
      * Inital method for OlaPicTest class
@@ -37,6 +39,7 @@ class OlaPicTest
     {
         $this->app = new Silex\Application();
         $this->app['debug'] = true;
+        $this->config = new OlaPic_Config();
     }
 
     /**
@@ -72,8 +75,95 @@ class OlaPicTest
      */
     public function media(Request $request, Application $app, $id){
 
-        $endpoint = 'https://api.instagram.com/v1/media/'.$id.'?client_id='.$this->client_id;
+        $endpoint = 'https://api.instagram.com/v1/media/'.$id.'?client_id='.$this->config->getInstId();
 
+        $media = $this->GET($endpoint);
+        $location = $this->LocationMedia($media);
+
+        if(!$location){
+            return $app->json("This media file, doesnt have a location",200);
+        }
+
+        $venues =  $this->FoursquareVenues($location);
+        $places = $this->GooglePlaces($location);
+
+        $location->places = $places;
+        $location->foursquare = $venues;
+
+        return $app->json($location,200);
+    }
+
+    /**
+     * Get foursquare venues by a location media.
+     * @param $location
+     * @return mixed
+     */
+    private function FoursquareVenues($location){
+
+        $endpoint = "https://api.foursquare.com/v2/venues/search?client_id=".$this->config->getFourId()."&client_secret=".$this->config->getFourSecret();
+        $endpoint.= "&ll=".$location->latitude.",".$location->longitude;
+        $endpoint.= "&v=20140806%20&m=foursquare";
+
+        $venues = $this->GET($endpoint);
+        $venues = $this->ValidateVenues($venues);
+
+        return $venues;
+    }
+
+    /**
+     * Validate the geolocation of the media file.
+     * @param $media
+     * @return mixed
+     */
+    private function LocationMedia($media){
+        if(!$media || !isset($media->data) || !$media->data->location){
+            return;
+        }
+        return $media->data->location;
+    }
+
+    /**
+     * Validate the Foursquares venues
+     * @param $venues
+     * @return mixed
+     */
+    private function ValidateVenues($venues){
+        if(!$venues || !isset($venues->meta) || $venues->meta->code != 200){
+            return Array("");
+        }
+        return $venues->response->venues;
+    }
+
+    /**
+     * Get places from google api
+     * @param $location
+     * @return mixed
+     */
+    private function GooglePlaces($location){
+        $endpoint = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=".$location->latitude.",".$location->longitude."&radius=500&key=".$this->config->getGooKey();
+        $places = $this->GET($endpoint);
+        $places = $this->ValidatePlaces($places);
+        return $places;
+    }
+
+    /**
+     * Validate google places locatiosn
+     * @param $places
+     * @return mixed
+     */
+    private function ValidatePlaces($places){
+        if(!$places || !isset($places->results) || empty($places->results)){
+            return;
+        }
+        return $places->results;
+    }
+
+    /**
+     * Make a GET request to the server
+     * @param $endpoint
+     * @return mixed
+     */
+    private function GET($endpoint){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,2);
@@ -82,10 +172,7 @@ class OlaPicTest
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $content = trim(curl_exec($ch));
         curl_close($ch);
-
-        $content = json_decode($content);
-
-        return $app->json($content,200);
+        return json_decode($content);
     }
 }
 
