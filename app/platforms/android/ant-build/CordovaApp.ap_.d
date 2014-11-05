@@ -37,5 +37,15 @@ C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\index.html \
 C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js \
 C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\css\index.css \
 C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\img\logo.png \
-C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\index.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\config \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\controllers \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\libs \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\olapic.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\services \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\config\config.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\controllers\map.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\libs\jquery-1.11.1.min.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\libs\jquery-1.11.1.min.map \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\services\instagram.js \
+C:\xampp\htdocs\_olapic\test\app\platforms\android\assets\www\js\services\olapicTest.js \
 C:\xampp\htdocs\_olapic\test\app\platforms\android\ant-build\AndroidManifest.xml \
